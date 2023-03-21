@@ -21,14 +21,20 @@ def predict():
     # GETTING THE COMMAND LINE ARGUMENTS INPUT
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("image_path",type=str,default="flowers/train/101.jpg")
-    parser.add_argument("checkpoint",default="checkpoint.pth")
+    parser.add_argument("image_path",type=str,default="flowers/train/101.jpg",type=str)
+    parser.add_argument("checkpoint",default="checkpoint.pth",type=str)
     parser.add_argument("--top_k",default="3",type=int)
-    parser.add_argument("--category_names",default="cat_to_name.json")
+    parser.add_argument("--category_names",default="cat_to_name.json",type=str)
     parser.add_argument("--gpu",action='store_true')
-
+    
     args = parser.parse_args()
-    device = "cuda" if args.gpu else "cpu"
+    prefered_device = "cuda" if args.gpu else "cpu"
+    
+    # IF CUDA IS AVAILABLE AND USER WANTS TO USE GPU THEN WE GOING TO SET DEVICE TO CUDA
+    if torch.cuda.is_available() and prefered_device=="cuda":
+        device = "cuda"
+    else:
+        device = "cpu"
 
     # LOADING OUR MODEL 
 

@@ -18,18 +18,24 @@ def train():
     # GETTING THE COMMAND LINE ARGUMENTS INPUT
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("dir",type=str,default="flowers")
-    parser.add_argument("--save_dir",default="checkpoints")
-    parser.add_argument("--arch",default="resnet")
-    parser.add_argument("--learning_rate",default=0.001)
-    parser.add_argument("--hidden_units",default=512)
+    parser.add_argument("dir",default="flowers",type=str)
+    parser.add_argument("--save_dir",default="checkpoints",type=str)
+    parser.add_argument("--arch",default="resnet",type=str)
+    parser.add_argument("--learning_rate",default=0.001,type=float)
+    parser.add_argument("--hidden_units",default=512,type=int)
     parser.add_argument("--epochs",default=5,type=int)
     parser.add_argument("--gpu",action='store_true')
 
     args = parser.parse_args()
     print(args.dir)
-    device = "cuda" if args.gpu else "cpu"
+    prefered_device = "cuda" if args.gpu else "cpu"
     
+    # IF CUDA IS AVAILABLE AND USER WANTS TO USE GPU THEN WE GOING TO SET DEVICE TO CUDA
+    if torch.cuda.is_available() and prefered_device=="cuda":
+        device = "cuda"
+    else:
+        device = "cpu"
+        
     # Specifying the data directories
     data_dir = args.dir
     train_dir = data_dir + '/train'
