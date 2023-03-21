@@ -102,7 +102,7 @@ def train():
                                   nn.Linear(1024,args.hidden_units),
                                   nn.ReLU(),
                                   nn.Dropout(p=0.5),
-                                  nn.Linear(args.hidden_units,102))
+                                  nn.Linear(args.hidden_units,len(train_dataset.class_to_idx)))
 
     elif model_arch == "alexnet" or model_arch == "vgg":
         model.classifier = nn.Sequential(
@@ -114,14 +114,14 @@ def train():
                                   nn.ReLU(),
                                   nn.Linear(4096,args.hidden_units),
                                   nn.ReLU(),
-                                  nn.Linear(args.hidden_units,102))
+                                  nn.Linear(args.hidden_units,len(train_dataset.class_to_idx)))
 
     elif model_arch == "resnet":
         model.fc = nn.Sequential(
                               nn.Linear(last_layer_input_nodes[model_arch],args.hidden_units),
                               nn.ReLU(),
                               nn.Dropout(p=0.2),
-                              nn.Linear(args.hidden_units,102))
+                              nn.Linear(args.hidden_units,len(train_dataset.class_to_idx)))
 
     # SPECIFYING THE LOSS AND OPTIMIZERS FOR THE MODEL
 
