@@ -13306,12 +13306,13 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>torch.Size([64, 3, 224, 224])
-tensor([ 90,  24,  33,  85,  72,  63,   4,  82,  98,  77,  38,  18,
-         77,  25,  49,  12,  52,   3,  95,  46,  97,  78,  26,  90,
-         80,  43,  95,   9,  78,  56,  54,  48,  40,  63,  49,  39,
-         64,  83,  74,  38,  51,  89,  51,  77,  37,  90,  38,   9,
-         34,  96,   5,  90,  90,   5,  81,  60,  83,  50,  77,  60,
-         25,  43,  94,  18])
+tensor([  53,    6,   35,   18,   29,   71,   68,   63,   96,   77,
+          38,   27,   96,   90,   52,  100,   43,   84,   89,   91,
+          99,   24,   73,   54,  101,   37,   40,   95,   44,   77,
+          48,   49,   18,   49,   64,   24,   68,   26,   17,   49,
+          69,   49,   73,   96,   97,   34,   90,   45,   79,   43,
+          33,   54,   65,   94,   19,   95,    6,   10,   34,   77,
+          40,   77,   17,   43])
 </pre>
 </div>
 </div>
@@ -13342,7 +13343,7 @@ GPU Workspaces about Keeping Your Session Active. You'll want to include code fr
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Build and train your network</span>
@@ -13353,31 +13354,10 @@ GPU Workspaces about Keeping Your Session Active. You'll want to include code fr
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/models/squeezenet.py:94: UserWarning: nn.init.kaiming_uniform is now deprecated in favor of nn.init.kaiming_uniform_.
-/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/models/squeezenet.py:92: UserWarning: nn.init.normal is now deprecated in favor of nn.init.normal_.
-Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth&#34; to /root/.torch/models/squeezenet1_1-f364aa15.pth
-100%|██████████| 4966400/4966400 [00:00&lt;00:00, 28354905.93it/s]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span>
@@ -13393,90 +13373,340 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[26]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>SqueezeNet(
-  (features): Sequential(
-    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
-    (1): ReLU(inplace)
-    (2): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
-    (3): Fire(
-      (squeeze): Conv2d(64, 16, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
+<pre>ResNet(
+  (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+  (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace)
+  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (layer1): Sequential(
+    (0): Bottleneck(
+      (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (downsample): Sequential(
+        (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
     )
-    (4): Fire(
-      (squeeze): Conv2d(128, 16, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
+    (1): Bottleneck(
+      (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
     )
-    (5): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
-    (6): Fire(
-      (squeeze): Conv2d(128, 32, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
-    )
-    (7): Fire(
-      (squeeze): Conv2d(256, 32, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
-    )
-    (8): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
-    (9): Fire(
-      (squeeze): Conv2d(256, 48, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
-    )
-    (10): Fire(
-      (squeeze): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
-    )
-    (11): Fire(
-      (squeeze): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
-    )
-    (12): Fire(
-      (squeeze): Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
-      (squeeze_activation): ReLU(inplace)
-      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
-      (expand1x1_activation): ReLU(inplace)
-      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-      (expand3x3_activation): ReLU(inplace)
+    (2): Bottleneck(
+      (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
     )
   )
-  (classifier): Sequential(
-    (0): Dropout(p=0.5)
-    (1): Conv2d(512, 1000, kernel_size=(1, 1), stride=(1, 1))
-    (2): ReLU(inplace)
-    (3): AvgPool2d(kernel_size=13, stride=1, padding=0)
+  (layer2): Sequential(
+    (0): Bottleneck(
+      (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (downsample): Sequential(
+        (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (2): Bottleneck(
+      (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (3): Bottleneck(
+      (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
   )
+  (layer3): Sequential(
+    (0): Bottleneck(
+      (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (downsample): Sequential(
+        (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (2): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (3): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (4): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (5): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (6): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (7): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (8): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (9): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (10): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (11): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (12): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (13): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (14): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (15): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (16): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (17): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (18): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (19): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (20): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (21): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (22): Bottleneck(
+      (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+  )
+  (layer4): Sequential(
+    (0): Bottleneck(
+      (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+      (downsample): Sequential(
+        (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+    (2): Bottleneck(
+      (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace)
+    )
+  )
+  (avgpool): AvgPool2d(kernel_size=7, stride=1, padding=0)
+  (fc): Linear(in_features=2048, out_features=1000, bias=True)
 )</pre>
 </div>
 
@@ -13488,7 +13718,7 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">layers</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
@@ -13507,7 +13737,7 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Inspecting our model that we built</span>
@@ -13524,7 +13754,7 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[55]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
@@ -13874,11 +14104,11 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13895,49 +14125,10 @@ Downloading: &#34;https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Parameter containing:
-tensor([[ 4.1557e-03, -1.7589e-02,  2.1297e-02,  ..., -1.8096e-02,
-          2.1713e-03,  1.2931e-02],
-        [ 2.1382e-02, -1.1241e-02,  1.1651e-02,  ..., -5.9273e-03,
-         -8.6904e-03, -6.5290e-03],
-        [ 4.1441e-03,  3.8984e-03,  1.6417e-03,  ...,  2.7533e-03,
-         -1.2139e-02,  2.9999e-03],
-        ...,
-        [ 1.9258e-02, -1.6333e-02, -1.4409e-02,  ...,  2.1476e-02,
-         -5.7353e-03,  1.6102e-02],
-        [ 1.3114e-02, -6.8905e-03,  1.1446e-02,  ...,  9.9673e-03,
-          8.9465e-03, -1.3054e-02],
-        [ 2.1169e-02, -1.2128e-02, -4.1329e-03,  ..., -9.7340e-03,
-          1.3517e-02, -7.9415e-03]])
-Parameter containing:
-tensor(1.00000e-02 *
-       [-0.8348,  0.3554, -1.9201,  ...,  0.1125,  0.4253, -2.1472])
-Parameter containing:
-tensor(1.00000e-02 *
-       [[-1.6118,  1.4170, -0.8479,  ..., -1.5132,  2.0924,  0.8600],
-        [-3.6025, -2.3130, -1.6019,  ...,  2.1339, -1.0798,  1.9191],
-        [ 2.7993, -1.8527,  1.2038,  ...,  3.4608, -2.9475, -3.1823],
-        ...,
-        [-1.9634,  3.4351,  3.7113,  ..., -1.1666, -1.1512, -1.6370],
-        [ 1.2559, -1.6365, -3.1840,  ...,  3.4971,  4.4117,  2.0067],
-        [ 1.1396,  3.5682,  1.7692,  ...,  2.9461, -0.2969,  1.3323]])
-Parameter containing:
-tensor(1.00000e-02 *
-       [ 1.1423,  3.5658, -2.7268,  0.4362, -1.7639, -1.5893, -2.5578,
-        -2.0675, -1.7595,  1.1014, -1.2016, -3.2127,  0.5248,  3.6995,
-         1.3425,  3.8847,  0.9460,  1.9566, -0.8250,  3.3191,  3.5335,
-        -3.7245,  4.1744,  3.4124, -4.0380,  2.1872,  1.7613,  1.6708,
-         2.5614,  2.9078, -4.1090, -2.7148, -3.9317, -0.3978, -1.3960,
-         3.6217,  3.1082, -0.0070,  0.4146,  1.0764, -1.8605,  1.2419,
-        -3.7603, -0.8701, -1.4777,  2.1059, -1.4866,  3.5844, -1.9222,
-         0.0978, -0.0936, -4.2010, -3.7122,  1.4316, -0.8343,  2.2198,
-         0.5441, -0.8668, -2.7605, -3.7588, -1.3890,  2.8565, -4.1094,
-         0.3129,  0.7088, -3.2129,  3.9919,  3.1476,  2.7472, -0.5059,
-        -2.1965,  0.0800,  2.1090,  1.4399,  1.7104,  0.8397,  3.3960,
-         4.1068, -1.0579,  4.0887,  0.5260, -1.2188,  0.6267,  0.8053,
-        -3.5712, -0.6473,  1.7504, -1.7436,  1.2206,  1.9229, -1.2787,
-         2.1761, -0.7751, -4.2960,  0.7942,  4.4042, -3.3078, -1.5705,
-        -1.0012, -2.0282, -0.2391, -0.9936])
+<pre>torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([102, 512])
+torch.Size([102])
 </pre>
 </div>
 </div>
@@ -13955,7 +14146,7 @@ tensor(1.00000e-02 *
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
@@ -13976,11 +14167,11 @@ tensor(1.00000e-02 *
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">softmax</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">train_loss</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">validation_loss</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
@@ -14048,87 +14239,24 @@ tensor(1.00000e-02 *
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Epoch 1 : 
-0% [                                                                                                    ]
-99% [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| ] train loss: 4.6
+99% [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| ] train loss: 1.90
 
 Evaluating...
 Training Loss: tensor(1.00000e-02 *
-       7.2743, device=&#39;cuda:0&#39;)
+       4.8249, device=&#39;cuda:0&#39;)
 Validation Loss: tensor(1.00000e-02 *
-       7.3412, device=&#39;cuda:0&#39;)
-Accuracy: 0%
+       2.4453, device=&#39;cuda:0&#39;)
+Accuracy: 62%
 Epoch 2 : 
-0% [                                                                                                    ]
-6% [||||||                                                                                              ] train loss: 4.6</pre>
-</div>
-</div>
+99% [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| ] train loss: 1.20
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-56-e1459f5b1a3e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     14</span>     print<span class="ansi-blue-fg">(</span>str<span class="ansi-blue-fg">(</span>j<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34;% [&#34;</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">*</span><span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34;]&#34;</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34; train loss: &#34;</span><span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#34;0.00&#34;</span><span class="ansi-blue-fg">,</span>end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;\r&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span> 
-<span class="ansi-green-fg">---&gt; 16</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">for</span> step<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">(</span>images<span class="ansi-blue-fg">,</span>labels<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">in</span> enumerate<span class="ansi-blue-fg">(</span>trainloader<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span>         images <span class="ansi-blue-fg">=</span> images<span class="ansi-blue-fg">.</span>to<span class="ansi-blue-fg">(</span>device<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span>         labels <span class="ansi-blue-fg">=</span> labels<span class="ansi-blue-fg">.</span>to<span class="ansi-blue-fg">(</span>device<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torch/utils/data/dataloader.py</span> in <span class="ansi-cyan-fg">__next__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    262</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>num_workers <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>  <span class="ansi-red-fg"># same-process loading</span>
-<span class="ansi-green-intense-fg ansi-bold">    263</span>             indices <span class="ansi-blue-fg">=</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>sample_iter<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># may raise StopIteration</span>
-<span class="ansi-green-fg">--&gt; 264</span><span class="ansi-red-fg">             </span>batch <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>collate_fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>self<span class="ansi-blue-fg">.</span>dataset<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> indices<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    265</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>pin_memory<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    266</span>                 batch <span class="ansi-blue-fg">=</span> pin_memory_batch<span class="ansi-blue-fg">(</span>batch<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torch/utils/data/dataloader.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
-<span class="ansi-green-intense-fg ansi-bold">    262</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>num_workers <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>  <span class="ansi-red-fg"># same-process loading</span>
-<span class="ansi-green-intense-fg ansi-bold">    263</span>             indices <span class="ansi-blue-fg">=</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>sample_iter<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># may raise StopIteration</span>
-<span class="ansi-green-fg">--&gt; 264</span><span class="ansi-red-fg">             </span>batch <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>collate_fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>self<span class="ansi-blue-fg">.</span>dataset<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> indices<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    265</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>pin_memory<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    266</span>                 batch <span class="ansi-blue-fg">=</span> pin_memory_batch<span class="ansi-blue-fg">(</span>batch<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/datasets/folder.py</span> in <span class="ansi-cyan-fg">__getitem__</span><span class="ansi-blue-fg">(self, index)</span>
-<span class="ansi-green-intense-fg ansi-bold">    101</span>         sample <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>loader<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    102</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>transform <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 103</span><span class="ansi-red-fg">             </span>sample <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>transform<span class="ansi-blue-fg">(</span>sample<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    104</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>target_transform <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    105</span>             target <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>target_transform<span class="ansi-blue-fg">(</span>target<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/transforms/transforms.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, img)</span>
-<span class="ansi-green-intense-fg ansi-bold">     47</span>     <span class="ansi-green-fg">def</span> __call__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> img<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     48</span>         <span class="ansi-green-fg">for</span> t <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>transforms<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 49</span><span class="ansi-red-fg">             </span>img <span class="ansi-blue-fg">=</span> t<span class="ansi-blue-fg">(</span>img<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     50</span>         <span class="ansi-green-fg">return</span> img
-<span class="ansi-green-intense-fg ansi-bold">     51</span> 
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/transforms/transforms.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, img)</span>
-<span class="ansi-green-intense-fg ansi-bold">    173</span>             PIL Image<span class="ansi-blue-fg">:</span> Rescaled image<span class="ansi-blue-fg">.</span>
-<span class="ansi-green-intense-fg ansi-bold">    174</span>         &#34;&#34;&#34;
-<span class="ansi-green-fg">--&gt; 175</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> F<span class="ansi-blue-fg">.</span>resize<span class="ansi-blue-fg">(</span>img<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>size<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>interpolation<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    176</span> 
-<span class="ansi-green-intense-fg ansi-bold">    177</span>     <span class="ansi-green-fg">def</span> __repr__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/torchvision-0.2.1-py3.6.egg/torchvision/transforms/functional.py</span> in <span class="ansi-cyan-fg">resize</span><span class="ansi-blue-fg">(img, size, interpolation)</span>
-<span class="ansi-green-intense-fg ansi-bold">    204</span>             <span class="ansi-green-fg">return</span> img<span class="ansi-blue-fg">.</span>resize<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">(</span>ow<span class="ansi-blue-fg">,</span> oh<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> interpolation<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    205</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 206</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> img<span class="ansi-blue-fg">.</span>resize<span class="ansi-blue-fg">(</span>size<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> interpolation<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    207</span> 
-<span class="ansi-green-intense-fg ansi-bold">    208</span> 
-
-<span class="ansi-green-fg">/opt/conda/lib/python3.6/site-packages/PIL/Image.py</span> in <span class="ansi-cyan-fg">resize</span><span class="ansi-blue-fg">(self, size, resample, box)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1763</span>         self<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1764</span> 
-<span class="ansi-green-fg">-&gt; 1765</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_new<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>im<span class="ansi-blue-fg">.</span>resize<span class="ansi-blue-fg">(</span>size<span class="ansi-blue-fg">,</span> resample<span class="ansi-blue-fg">,</span> box<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1766</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1767</span>     def rotate(self, angle, resample=NEAREST, expand=0, center=None,
-
-<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
+Evaluating...
+Training Loss: tensor(1.00000e-02 *
+       1.9993, device=&#39;cuda:0&#39;)
+Validation Loss: tensor(1.00000e-02 *
+       1.4196, device=&#39;cuda:0&#39;)
+Accuracy: 76%
+</pre>
 </div>
 </div>
 
@@ -14229,6 +14357,7 @@ Accuracy: 85%
     <span class="s2">&quot;hidden_layers&quot;</span><span class="p">:</span><span class="n">model</span><span class="o">.</span><span class="n">fc</span><span class="p">,</span>
     <span class="s2">&quot;state_dict&quot;</span><span class="p">:</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
     <span class="s2">&quot;classes_to_idx&quot;</span><span class="p">:</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">class_to_idx</span><span class="p">,</span>
+    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span><span class="n">optimizer</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
 <span class="p">}</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">checkpoint_data</span><span class="p">,</span> <span class="s2">&quot;model.pth&quot;</span><span class="p">)</span>
 </pre></div>
